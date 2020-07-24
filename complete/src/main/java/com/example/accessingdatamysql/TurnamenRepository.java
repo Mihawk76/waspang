@@ -1,6 +1,10 @@
 package com.example.accessingdatamysql;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 import com.example.accessingdatamysql.Turnamen;
 
@@ -10,4 +14,7 @@ import com.example.accessingdatamysql.Turnamen;
 public interface TurnamenRepository extends CrudRepository<Turnamen, Integer> {
 //public interface ThRepository extends CrudRepository<Th, Integer> {
 
+
+	@Query(value = "SELECT u FROM Turnamen u")
+	List<Turnamen> findTurnamen();
 }

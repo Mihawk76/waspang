@@ -28,6 +28,12 @@ public class MainController {
 	@Autowired // This means to get the bean called userRepository
 	private TurnamenRepository turnamenRepository;
 
+	@Autowired // This means to get the bean called userRepository
+	private PesertaRepository pesertaRepository;
+
+	@Autowired // This means to get the bean called userRepository
+	private Turnamen_skorRepository turnamen_skorRepository;
+
 	@PostMapping(path="/add") // Map ONLY POST Requests
 	public @ResponseBody String addNewUser (@RequestParam String name
 			, @RequestParam String email) {
@@ -40,23 +46,37 @@ public class MainController {
 		userRepository.save(n);
 		return "Saved";
 	}
-	@PostMapping(path="/addTurnamen") // Map ONLY GET Requests
+	//@PostMapping(path="/addTurnamen") // Map ONLY GET Requests
         //public @ResponseBody String addNewStore (@RequestParam String name
-        public @ResponseBody String addNewTurnamen (@RequestParam String name
-                        , @RequestParam String email) {
+	@RequestMapping(
+          value = "/addTurnamen",
+              headers = "Accept=application/json")
+        public @ResponseBody String addNewTurnamen (@RequestParam String json
+                        ) {
                 // @ResponseBody means the returned String is the response, not a view name
                 // @RequestParam means it is a parameter from the GET or POST request
 
                 //Store n = new Store();
                 String jsonString = "{\"k1\":\"v1\",\"k2\":\"v2\"}";
+		String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"20:11:23\",\"tinggi\":\"5\",\"turnamen_id\":\"1\"}";
+		//String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"a\",\"tinggi\":\"5\"},\"turnamen_id\":\"01\"}";
                 Turnamen n = new Turnamen();
                 ObjectMapper mapper = new ObjectMapper();
                 try {
-                        //JsonNode actualObj = mapper.readTree(json);
-                        JsonNode actualObj = mapper.readTree(jsonString);
-                        JsonNode aK1 = actualObj.get("k1");
+                        JsonNode actualObj = mapper.readTree(json);
+                        //JsonNode actualObj = mapper.readTree(json_new);
+                        //JsonNode aK1 = actualObj.get("k1");
+                        //JsonNode aK1 = actualObj.get("name_turnamen");
 			//setNama_turnamen
-			n.setName(aK1.asText());
+			//n.setNama_turnamen(aK1.asText());
+			n.setNama_turnamen(actualObj.get("name_turnamen").asText());
+			n.setJumlah_burung(actualObj.get("jumlah_burung").asInt());
+			n.setJumlah_juri(actualObj.get("jumlah_juri").asInt());
+			n.setLebar(actualObj.get("lebar").asInt());
+			n.setLokasi(actualObj.get("lokasi").asText());
+			n.setTimeStamps(actualObj.get("timestamps").asText());
+			n.setTinggi(actualObj.get("tinggi").asInt());
+			n.setTurnamen_id(actualObj.get("turnamen_id").asInt());
                         //n.setNama_turnamen(aK1.asText());
                         //log.error(aK1.asText());
                         //log.error(actualObj.get(0).textValue());
@@ -71,9 +91,109 @@ public class MainController {
                 return "Saved";
         }
 
+	@RequestMapping(
+          value = "/addPeserta",
+              headers = "Accept=application/json")
+        public @ResponseBody String addNewPeserta (@RequestParam String json
+                        ) {
+                // @ResponseBody means the returned String is the response, not a view name
+                // @RequestParam means it is a parameter from the GET or POST request
+
+                //Store n = new Store();
+                String jsonString = "{\"k1\":\"v1\",\"k2\":\"v2\"}";
+		String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"20:11:23\",\"tinggi\":\"5\",\"turnamen_id\":\"1\"}";
+		//String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"a\",\"tinggi\":\"5\"},\"turnamen_id\":\"01\"}";
+                Peserta n = new Peserta();
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                        JsonNode actualObj = mapper.readTree(json);
+                        //JsonNode actualObj = mapper.readTree(json_new);
+                        //JsonNode aK1 = actualObj.get("k1");
+                        //JsonNode aK1 = actualObj.get("name_turnamen");
+			//setNama_turnamen
+			//n.setNama_turnamen(aK1.asText());
+			n.setBurung_id(actualObj.get("burung_id").asInt());
+			n.setBurung_id_tur(actualObj.get("burung_id_tur").asInt());
+			n.setSkor(actualObj.get("skor").asInt());
+			n.setNama_burung(actualObj.get("nama_burung").asText());
+			n.setNama_pemilik(actualObj.get("nama_pemilik").asText());
+			n.setTimeStamps(actualObj.get("timestamps").asText());
+			n.setValue(actualObj.get("value").asInt());
+                        //n.setNama_turnamen(aK1.asText());
+                        //log.error(aK1.asText());
+                        //log.error(actualObj.get(0).textValue());
+                } catch (IOException e) {
+                        throw new RuntimeException("Error :" + e);
+                        }
+		
+			
+                //n.setNama_turnamen(name);
+		//n.setName(name);
+                pesertaRepository.save(n);
+                return "Saved";
+        }
+	
+	@RequestMapping(
+          value = "/addTurnamen_skor",
+              headers = "Accept=application/json")
+        public @ResponseBody String addNewTurnamen_skor (@RequestParam String json
+                        ) {
+                // @ResponseBody means the returned String is the response, not a view name
+                // @RequestParam means it is a parameter from the GET or POST request
+
+                //Store n = new Store();
+                String jsonString = "{\"k1\":\"v1\",\"k2\":\"v2\"}";
+		String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"20:11:23\",\"tinggi\":\"5\",\"turnamen_id\":\"1\"}";
+		//String json_new="{\"jumlah_burung\":\"15\",\"jumlah_juri\":\"2\",\"lebar\":\"3\",\"lokasi\":\"Depok\",\"name_turnamen\":\"waspang\",\"timestamps\":\"a\",\"tinggi\":\"5\"},\"turnamen_id\":\"01\"}";
+                Turnamen_skor n = new Turnamen_skor();
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                        JsonNode actualObj = mapper.readTree(json);
+                        //JsonNode actualObj = mapper.readTree(json_new);
+                        //JsonNode aK1 = actualObj.get("k1");
+                        //JsonNode aK1 = actualObj.get("name_turnamen");
+			//setNama_turnamen
+			//n.setNama_turnamen(aK1.asText());
+			n.setTurnamen_id(actualObj.get("turnamen_id").asInt());
+			n.setBurung_id(actualObj.get("burung_id").asInt());
+			n.setSkor(actualObj.get("skor").asInt());
+			n.setNama_burung(actualObj.get("nama_burung").asText());
+			n.setTimeStamps(actualObj.get("timestamps").asText());
+                        //n.setNama_turnamen(aK1.asText());
+                        //log.error(aK1.asText());
+                        //log.error(actualObj.get(0).textValue());
+                } catch (IOException e) {
+                        throw new RuntimeException("Error :" + e);
+                        }
+		
+			
+                //n.setNama_turnamen(name);
+		//n.setName(name);
+                turnamen_skorRepository.save(n);
+                return "Saved";
+        }
+
 	@GetMapping(path="/all")
 	public @ResponseBody Iterable<User> getAllUsers() {
 		// This returns a JSON or XML with the users
 		return userRepository.findAll();
+	}
+	
+	@GetMapping(path="/readTurnamen")
+	public @ResponseBody Iterable<Turnamen> getAllTurnamen() {
+		// This returns a JSON or XML with the users
+		//return turnamenRepository.findAll();
+		return turnamenRepository.findTurnamen();
+	}
+	@GetMapping(path="/readPeserta")
+	public @ResponseBody Iterable<Peserta> getAllPeserta() {
+		// This returns a JSON or XML with the users
+		return pesertaRepository.findAll();
+	}
+
+	@GetMapping(path="/readTurnamen_skor")
+	public @ResponseBody Iterable<Turnamen_skor> getAllTurnamen_skor() {
+		// This returns a JSON or XML with the users
+		return turnamen_skorRepository.findAll();
 	}
 }

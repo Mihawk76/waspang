@@ -4,13 +4,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.persistence.Column;
+import javax.persistence.Column;
 
 @Entity // This tells Hibernate to make a table out of this class
 public class Turnamen {
     	@Id
     	@GeneratedValue(strategy=GenerationType.AUTO)
-        private Integer id;
+        /*private Integer id;
 
         private String name;
 
@@ -38,36 +38,37 @@ public class Turnamen {
 
         public void setEmail(String email) {
                 this.email = email;
-        }
+        }*/
     //@GeneratedValue(strategy=GenerationType.SEQUENCE, name="user_id")
     //@GeneratedValue(strategy=GenerationType.SEQUENCE)
     //@SequenceGenerator( name="user_id", sequenceName="subscription_id_user", allocationSize=7)
-    /*
+    
     private Integer id;
 
-    //@Column(name="turnamen_id", nullable=false, length=5)
+    @Column(name="turnamen_id", nullable=true, length=5)
     private Integer turnamen_id;
     
-    //@Column(name="nama_turnamen", nullable=false, length=50)
+    @Column(name="nama_turnamen", nullable=true, length=50)
     private String nama_turnamen;
 
-    //@Column(name="jumlah_burung", nullable=false, length=5)
-    //private Integer jumlah_burung;
+    @Column(name="jumlah_burung", nullable=true, length=5)
+    private Integer jumlah_burung;
     
-    //@Column(name="lokasi", nullable=false, length=50)
-    //private String lokasi;
+    @Column(name="lokasi", nullable=true, length=50)
+    private String lokasi;
 
-    //@Column(name="jumlah_juri", nullable=false, length=5)
-    //private Integer jumlah_juri;
+    @Column(name="jumlah_juri", nullable=true, length=5)
+    private Integer jumlah_juri;
 
-    //@Column(name="tinggi", nullable=false, length=5)
-    //private Integer tinggi;
+    @Column(name="tinggi", nullable=true, length=5)
+    private Integer tinggi;
 
-    //@Column(name="lebar", nullable=false, length=5)
-    //private Integer lebar;
+    @Column(name="lebar", nullable=true, length=5)
+    private Integer lebar;
 
-    //@Column(name="timestamps", nullable=false, length=5)
-    //private String timestamps;
+    @Column(name="timestamps", nullable=true, length=19)
+    private String timestamps;
+    	
 	public Integer getId() {
 		return id;
 	}
@@ -91,8 +92,8 @@ public class Turnamen {
 	public void setNama_turnamen(String nama_turnamen) {
 		this.nama_turnamen = nama_turnamen;
 	}
-`	*/
-	/*public Integer getJumlah_burung() {
+	
+	public Integer getJumlah_burung() {
 		return jumlah_burung;
 	}
 
@@ -139,7 +140,7 @@ public class Turnamen {
 	public void setTimeStamps(String timestamps) {
 		this.timestamps = timestamps;
 	}
-	*/
+	
     
     
 }

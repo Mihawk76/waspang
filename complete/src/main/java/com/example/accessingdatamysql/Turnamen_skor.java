@@ -30,6 +30,9 @@ public class Turnamen_skor {
     @Column(name="nama_burung", nullable=false, length=50)
     private String nama_burung;
 
+    @Column(name="timestamps", nullable=true, length=19)
+    private String timestamps;
+
 	public Integer getId() {
 		return id;
 	}
@@ -77,6 +80,14 @@ public class Turnamen_skor {
 	public void setNama_burung(String nama_burung) {
 		this.nama_burung = nama_burung;
 	}
+
+	public String getTimeStamps() {
+                return timestamps;
+        }
+
+        public void setTimeStamps(String timestamps) {
+                this.timestamps = timestamps;
+        }
 	
 }
 
