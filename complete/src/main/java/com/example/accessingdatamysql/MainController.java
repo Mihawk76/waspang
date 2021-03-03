@@ -179,11 +179,38 @@ public class MainController {
 		return userRepository.findAll();
 	}
 	
-	@GetMapping(path="/readTurnamen")
-	public @ResponseBody Iterable<Turnamen> getAllTurnamen() {
+	//@GetMapping(path="/readTurnamen",
+	@RequestMapping(path="/readTurnamen",
+		headers = "Accept=application/json")
+	public @ResponseBody Iterable<Turnamen> getAllTurnamen(@RequestParam String json
+			) 
+	{
+                ObjectMapper mapper = new ObjectMapper();
+		//int turnamen_id = 99;
+                try {
+                        JsonNode actualObj = mapper.readTree(json);
+			if(actualObj.isEmpty())
+			{
+				return turnamenRepository.findAll();
+			}
+			else{
+				return turnamenRepository.findTurnamenById(actualObj.get("turnamen_id").asInt());
+
+			}
+			//turnamen_id = actualObj.get("turnamen_id").asInt();
 		// This returns a JSON or XML with the users
 		//return turnamenRepository.findAll();
-		return turnamenRepository.findTurnamen();
+		}
+                 catch (IOException e) {
+                        throw new RuntimeException("Error :" + e);
+                        }
+		/*if( turnamen_id != 99)
+		{
+			return turnamenRepository.findTurnamenById(turnamen_id);
+		}
+		else{
+			return turnamenRepository.findAll();
+		}*/
 	}
 	@GetMapping(path="/readPeserta")
 	public @ResponseBody Iterable<Peserta> getAllPeserta() {
@@ -191,9 +218,30 @@ public class MainController {
 		return pesertaRepository.findAll();
 	}
 
-	@GetMapping(path="/readTurnamen_skor")
-	public @ResponseBody Iterable<Turnamen_skor> getAllTurnamen_skor() {
+	//@GetMapping(path="/readTurnamen_skor")
+	@RequestMapping(path="/readTurnamen_skor",
+		headers = "Accept=application/json")
+	public @ResponseBody Iterable<Turnamen_skor> getAllTurnamen_skor(@RequestParam String json) {
 		// This returns a JSON or XML with the users
-		return turnamen_skorRepository.findAll();
+                ObjectMapper mapper = new ObjectMapper();
+		//int turnamen_id = 99;
+                try {
+                        JsonNode actualObj = mapper.readTree(json);
+			if(actualObj.isEmpty())
+			{
+				return turnamen_skorRepository.findAll();
+			}
+			else{
+				return turnamen_skorRepository.findSkorPeserta(actualObj.get("turnamen_id").asInt());
+
+			}
+			//turnamen_id = actualObj.get("turnamen_id").asInt();
+		// This returns a JSON or XML with the users
+		//return turnamenRepository.findAll();
+		}
+                 catch (IOException e) {
+                        throw new RuntimeException("Error :" + e);
+                        }
+		//return turnamen_skorRepository.findAll();
 	}
 }

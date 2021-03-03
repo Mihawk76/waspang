@@ -15,6 +15,6 @@ public interface TurnamenRepository extends CrudRepository<Turnamen, Integer> {
 //public interface ThRepository extends CrudRepository<Th, Integer> {
 
 
-	@Query(value = "SELECT u FROM Turnamen u")
-	List<Turnamen> findTurnamen();
+	@Query(value = "SELECT u FROM Turnamen u WHERE u.turnamen_id = ?1")
+	List<Turnamen> findTurnamenById(Integer turnamen_id);
 }
